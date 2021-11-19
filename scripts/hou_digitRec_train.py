@@ -3,9 +3,6 @@
 node = hou.pwd()
 geo = node.geometry()
 
-# Add code to modify contents of geo.
-# Use drop down menu to select examples.
-
 # modules
 
 import numpy as np
@@ -40,7 +37,7 @@ test_split = int(len(geo.points())*0.2)
 
 # output location
 
-PATH = "`$HIP`/model.pth"
+PATH = "`$HIP`/model/model.pth"
 
 ### IMPORT DATA from Point Attributes ###
 
@@ -65,8 +62,8 @@ numpy_output =  np.zeros((N,1), 'float32') # 1D output array
 for i,point in enumerate(geo.points()):
     numpy_input[i] = np.asarray(point.attribValue('input'))
     numpy_output[i] = np.asarray(point.attribValue('target'))
-    #numpy_output = numpy_output.flatten()
-    print(numpy_output[i])
+
+
 # transformer
 
 class ReshapeToTensor:
@@ -85,7 +82,8 @@ class ReshapeToTensor:
 
 transform = ReshapeToTensor()
 
-# Datasets
+
+# Dataset
 
 class digitDataset(Dataset):
     def __init__(self, transform=None):
@@ -106,6 +104,7 @@ class digitDataset(Dataset):
         
 dataset = digitDataset(transform=transform)
 
+
 # Training Sets
 
 train_set, test_set = torch.utils.data.random_split(dataset, [train_split, test_split])
@@ -113,6 +112,7 @@ train_set, test_set = torch.utils.data.random_split(dataset, [train_split, test_
 train_loader = torch.utils.data.DataLoader(dataset=train_set, batch_size=batch_size, shuffle=False)
 
 test_loader = torch.utils.data.DataLoader(dataset=test_set, batch_size=batch_size, shuffle=False)
+
 
 # Sanity Check 
 
@@ -129,12 +129,13 @@ print("Example Target Shape:  ",example_targets[0].shape)
 print('--------------------------')
 print("Example Target Shape:  ",example_targets[0].type())
 print('--------------------------')
-print("Train Set Batch Shape: ", example_data.shape)
+print("Train Set Batch Shape: ",example_data.shape)
 print('--------------------------')
-print("Train Set Length:      ", train_set.__len__())
+print("Train Set Length:      ",train_set.__len__())
 print('--------------------------')
-print("Test Set Length:       ", test_set.__len__())
+print("Test Set Length:       ",test_set.__len__())
 print('--------------------------')
+
 
 # define nerual network structure
 
@@ -159,6 +160,7 @@ model = NeuralNet(input_size, hidden_size, num_classes).to(device) # has to be o
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
 
 # training loop
 
@@ -186,31 +188,19 @@ for epoch in range(num_epochs):
         if (i+1) % 1 == 0:
             print(f'epoch {epoch+1} / {num_epochs}, step {i+1}/{n_totalsteps}, loss {loss.item():.4f}')
 
+
+# save model
+print('--------------------------')
+torch.save(model.state_dict(), PATH)
+print("Model saved at: ",PATH)
+
 print('--------------------------')
 print('------- MODEL EVAL  ------')
 print('--------------------------')
 
-# save model
-
-# torch.save(model.state_dict(), PATH)
-# print("Model saved at: ",PATH)
-
-'''
+# test model
 
 model.eval()
-
-with torch.no_grad():
-    for i, (input, target) in enumerate(test_loader):
-        input = input.reshape(-1, 28*28).to(device)
-        target = target.to(device)
-        pred = model(input)
-        prediction = np.argmax(pred.cpu())
-    print(prediction)
-    #print(target)
-
-
-'''
-# test model
 
 with torch.no_grad():
     n_correct = 0
