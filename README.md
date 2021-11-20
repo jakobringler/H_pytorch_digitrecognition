@@ -5,8 +5,8 @@ Simple ML digit recognition in SideFX Houdini using PyTorch and Numpy
 
 ### Dependencies:
 - Houdini 19 py3
-- Python 3.7.4
+- Python  3.7.4
 - PyTorch 1.10.0 
-- Numpy 1.21.3
-- cuda 11.3.1
-- cudnn 11.3
+- Numpy   1.21.3
+- cuda    11.3.1
+- cudnn   11.3
