@@ -24,7 +24,7 @@ from datetime import datetime
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-# hyper parameters
+# Parameters
 
 input_size = 784 # 28 x 28 pixels
 hidden_size = 100
@@ -35,13 +35,11 @@ learning_rate = 0.001
 train_split = int(len(geo.points())*0.8)
 test_split = int(len(geo.points())*0.2)
 
-# output location
+# Model Output Location
 
 PATH = "`$HIP`/model/model.pth"
 
-### IMPORT DATA from Point Attributes ###
-
-# data
+# data shape
 
 h = 28
 w = h
@@ -54,7 +52,7 @@ shape = data.shape
 
 N = len(geo.points()) # samples
 
-# create numpy array from input and output point attribute arrays
+# create numpy array from input and target
 
 numpy_input = np.zeros((N,784), 'float32') # 28 x 28 pixels -> 784 
 numpy_output =  np.zeros((N,1), 'float32') # 1D output array 
@@ -64,7 +62,7 @@ for i,point in enumerate(geo.points()):
     numpy_output[i] = np.asarray(point.attribValue('target'))
 
 
-# transformer
+# Transformer
 
 class ReshapeToTensor:
     def __init__(self):
@@ -119,7 +117,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_set, batch_size=batch_siz
 examples = iter(train_loader)
 example_data, example_targets = examples.next()
 
-#print("Example Input:\n", example_data[0])
+print("Example Input:\n", example_data[0])
 print('--------------------------')
 print("Example Input Shape:   ",example_data[0].shape)
 print('--------------------------')
@@ -136,8 +134,6 @@ print('--------------------------')
 print("Test Set Length:       ",test_set.__len__())
 print('--------------------------')
 
-
-# define nerual network structure
 
 # Model 
 
@@ -156,13 +152,13 @@ class NeuralNet(nn.Module):
 
 model = NeuralNet(input_size, hidden_size, num_classes).to(device) # has to be on gpu
 
-# loss
+# Loss
 
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 
-# training loop
+# Training Loop
 
 print('-------  TRAINING   ------')
 print('--------------------------')
@@ -171,14 +167,12 @@ n_totalsteps = len(train_loader)
 
 for epoch in range(num_epochs):
     for i, (input, target) in enumerate(train_loader):
-        # 100, 1, 28, 28
-        # 100, 784
         input = input.reshape(-1, 28*28).to(device) # has to be on gpu
         target = target.to(device) # has to be on gpu
         
         # forward
         outputs = model(input)
-        loss = criterion(outputs, target) # torch.max(VAR, 1)[1] to reshape array to 1d 
+        loss = criterion(outputs, target) 
 
         # backward
         optimizer.zero_grad()
@@ -189,16 +183,19 @@ for epoch in range(num_epochs):
             print(f'epoch {epoch+1} / {num_epochs}, step {i+1}/{n_totalsteps}, loss {loss.item():.4f}')
 
 
-# save model
-print('--------------------------')
-torch.save(model.state_dict(), PATH)
-print("Model saved at: ",PATH)
+# Save Model
 
+print('--------------------------')
+
+torch.save(model.state_dict(), PATH)
+
+print("Model saved at: ",PATH)
 print('--------------------------')
 print('------- MODEL EVAL  ------')
 print('--------------------------')
 
-# test model
+
+# Test Model
 
 model.eval()
 
@@ -209,10 +206,10 @@ with torch.no_grad():
         input = input.reshape(-1, 28*28).to(device)
         target = target.to(device)
         outputs = model(input)
-        # max returns (value ,index)
         _, predicted = torch.max(outputs.data, 1)
         n_samples += target.size(0)        
         print("Predicted Output:  ",predicted[i],"\nTarget:            ",target[i])
+        print('--------------------------')
         n_correct += (predicted == target).sum().item()
         
     acc = 100 * (n_correct / n_samples)

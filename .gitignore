@@ -1,3 +1,8 @@
 hip/backup/*
 hip/hda/backup/*
 hip/data/*
+preview/Houdini_DigitRecognition_PyTorch_v01.gif
+preview/Houdini_DigitRecognition_PyTorch_v01.mp4
+preview/AE/preview_digitRec.aep
+preview/AE/preview_digitRec_AME/tmpAEtoAMEProject-Desktop 2021.11.19 - 15.39.30.03.aep
+hip/model/old/model.pth
