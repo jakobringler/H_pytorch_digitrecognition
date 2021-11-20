@@ -16,3 +16,6 @@ Simple ML digit recognition in SideFX Houdini using PyTorch and Numpy
 
 ### Scripts:
 All of the scripts are implemented internally in Houdini's python nodes. The .py files are just for quick code access without having to open Houdini.
+
+### Credits:
+Edmond Boulet-Gilly's video helped me figure out lots of things: https://www.youtube.com/watch?v=WNEEokEq-Fg
