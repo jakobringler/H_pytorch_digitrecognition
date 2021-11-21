@@ -11,8 +11,8 @@ Simple ML digit recognition in SideFX Houdini using PyTorch and Numpy
 - Python  3.7.4
 - PyTorch 1.10.0 
 - Numpy   1.21.3
-- cuda    11.3.1
-- cudnn   11.3
+- Cuda    11.3.1
+- cudNN   11.3
 
 ### Data:
 The digit data gets generated in SOPs within Houdini and doesn't rely on the classical MNIST dataset. There is no real use for this approach other than experimenting with procedural data generation and the 'Houdini to PyTorch and back' interface.
