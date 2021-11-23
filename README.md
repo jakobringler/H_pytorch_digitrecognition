@@ -4,7 +4,7 @@ Simple ML digit recognition in SideFX Houdini using PyTorch and Numpy
 
 ### Demo:
 
-![](Houdini_DigitRecognition_PyTorch_v02.gif)
+![](Houdini_DigitRecognition_PyTorch_v03.gif)
 
 ### Dependencies:
 - Houdini 19 py3
