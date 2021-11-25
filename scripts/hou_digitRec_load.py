@@ -154,15 +154,25 @@ with torch.no_grad():
         input = input.reshape(-1, 28*28).to(device)
         target = target.to(device)
         outputs = model(input)
+        
         _, predicted = torch.max(outputs.data, 1)
        
+        #probabilities
+        sm = torch.nn.Softmax()
+        probabilities = sm(outputs) 
+        fp = probabilities.ravel()
+        fp = fp.numpy()
+        
     prediction = predicted[i].item()
     
-    print('--------------------------')
-    print("Predicted Output:  ",prediction)
+    # print('--------------------------')
+    # print("Predicted Output:  ",prediction)
 
     for i,point in enumerate(geo.points()):
-        point.setAttribValue("pred", prediction)        
+        point.setAttribValue("pred", prediction)  
+        
+    for i,point in enumerate(geo.points()):
+        point.setAttribValue("prob", fp.astype(np.float64))
 
-print('--------------------------')
-print(datetime.now())
+# print('--------------------------')
+# print(datetime.now())
