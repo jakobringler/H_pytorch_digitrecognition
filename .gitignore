@@ -1,27 +1,7 @@
 hip/backup/*
 hip/hda/backup/*
 hip/data/*
-preview/Houdini_DigitRecognition_PyTorch_v01.gif
-preview/Houdini_DigitRecognition_PyTorch_v01.mp4
-preview/AE/preview_digitRec.aep
-preview/AE/preview_digitRec_AME/tmpAEtoAMEProject-Desktop 2021.11.19 - 15.39.30.03.aep
 hip/model/old/model.pth
-hip/_legacy/digitRecognition_v01.hiplc
-hip/_legacy/digitRecognition_v02.hiplc
-hip/_legacy/digitRecognition_v03.hiplc
-hip/_legacy/digitRecognition_v04.hiplc
-hip/_legacy/digitRecognition_v07.hiplc
-hip/_legacy/digitRecognition_v08.hiplc
-hip/_legacy/digitRecognition_v09.hiplc
-hip/_legacy/digitRecognition_v10.hiplc
-hip/_legacy/digitRecognition_v11.hiplc
-hip/_legacy/digitRecognition_v12.hiplc
-hip/_legacy/digitRecognition_v13.hiplc
-hip/_legacy/digitRecognition_v14.hiplc
-hip/_legacy/digitRecognition_v15.hiplc
-preview/AE/preview_digitRec_AME/preview_1.gif
-preview/AE/preview_digitRec_AME/preview.gif
-preview/AE/preview_digitRec_AME/tmpAEtoAMEProject-Unterkomp. 1.aep
-preview/Houdini_DigitRecognition_PyTorch_v02.gif
-preview/AE/Houdini_DigitRecognition_PyTorch_v01.gif
-preview/AE/preview_digitRec_AME/tmpAEtoAMEProject-Desktop 2021.11.19 - 15.39.30.03_1.aep
+hip/_legacy/*
+preview/*
+preview/AE/*
