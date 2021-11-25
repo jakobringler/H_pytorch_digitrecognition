@@ -4,12 +4,12 @@ Simple ML digit recognition in SideFX Houdini using PyTorch and Numpy
 
 ### Demo:
 
-![](Houdini_DigitRecognition_PyTorch_v02.gif)
+![](Houdini_DigitRecognition_PyTorch_v04.gif)
 
 ### Dependencies:
 - Houdini 19 py3
 - Python  3.7.4
-- PyTorch 1.10.0 
+- PyTorch 1.10.0
 - Numpy   1.21.3
 - Cuda    11.3.1
 - cudNN   11.3
